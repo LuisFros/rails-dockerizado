@@ -6,21 +6,29 @@
 # Exit if any subcommand fails
 set -e
 
-# Set up Ruby dependencies via Bundler
-gem install bundler --conservative
-bundle check || bundle install
+echo "Running setup"                                                                                                                                                                                 
 
-# Install javascript dependencies
-bin/yarn install
 
-# Set up required services
-make services-up
+if [ ! -f .initialized ]; then                                                                                                                                                                                    
+    echo "Initializing container"                                                                                                                                                                                 
+    # run initializing commands                                                                                                                                                                                   
 
-# Set up database
-bin/rails db:setup
+    exec "$@"
+    # Set up Ruby dependencies via Bundler
+    gem install bundler --conservative
+    bundle check || bundle install
 
-# Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
-mkdir -p .git/safe
+    # Install javascript dependencies
+    bin/yarn install
 
-# Setup heroku remotes
-bin/setup_heroku
+    # Set up database
+    bin/rails db:setup
+
+    # Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
+    mkdir -p .git/safe
+
+    # Setup heroku remotes
+    bin/setup_heroku
+    
+    touch .initialized                                                                                                                                                                                            
+fi                                                                                                                                                                                                                

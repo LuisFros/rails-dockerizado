@@ -30,7 +30,10 @@ services-ps:
 	docker-compose $(DOCKER_COMPOSE_ARGS) ps
 
 services-up:
-	docker-compose $(DOCKER_COMPOSE_ARGS) up -d
+	docker-compose $(DOCKER_COMPOSE_ARGS) up
+
+services-build:
+	docker-compose ${DOCKER_COMPOSE_ARGS} build
 
 services-stop:
 	docker-compose $(DOCKER_COMPOSE_ARGS) stop

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <head>
     <title>RailsDockerizado</title>
     <%= csrf_meta_tags %>
     <%= javascript_pack_tag 'application' %>
@@ -11,11 +10,10 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    Hello
+  <body> 
     <div id="vue-app">
       <app></app>
-      <%= yield %>d
+      <%= yield %>
     </div>
   </body>
 </html>

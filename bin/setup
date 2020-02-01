@@ -9,26 +9,31 @@ set -e
 echo "Running setup"                                                                                                                                                                                 
 
 
-if [ ! -f .initialized ]; then                                                                                                                                                                                    
-    echo "Initializing container"                                                                                                                                                                                 
-    # run initializing commands                                                                                                                                                                                   
+                                                                                                                                                                            
+echo "Initializing container"                                                                                                                                                                                 
+# run initializing commands                                                                                                                                                                                   
 
-    exec "$@"
-    # Set up Ruby dependencies via Bundler
-    gem install bundler --conservative
-    bundle check || bundle install
+# Set up Ruby dependencies via Bundler
+gem install bundler --conservative
+bundle check || bundle install
 
-    # Install javascript dependencies
-    bin/yarn install
+# Install javascript dependencies
+bin/yarn install
 
-    # Set up database
-    bin/rails db:setup
+# Set up database
+bin/rails db:setup
 
-    # Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
-    mkdir -p .git/safe
+# Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
+mkdir -p .git/safe
 
-    # Setup heroku remotes
-    bin/setup_heroku
-    
-    touch .initialized                                                                                                                                                                                            
-fi                                                                                                                                                                                                                
+# Setup heroku remotes
+bin/setup_heroku
+
+                                                                                                                                                                                  
+                                                                                                                                                                                                            
+
+if [ -f tmp/pids/server.pid ]; then
+  rm tmp/pids/server.pid
+fi
+
+# bundle exec rails s -p 3000 -b '0.0.0.0'

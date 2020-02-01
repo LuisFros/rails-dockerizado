@@ -2,10 +2,9 @@ development: &default
   adapter: postgresql
   database: rails_dockerizado_development
   encoding: utf8
-  host: <%= ENV["DB_HOST"] || "postgresql" %>
-  username: <%= ENV["DB_USER"] || "postgres" %>
-  password: <%= ENV["DB_PASSWORD"] || "" %>
-  port: <%= ENV["DB_PORT"] || "5432" %>
+  host: <%= ENV["DB_HOST"] || 'postgresql' %>
+  port: <%= ENV["DB_PORT"] || 5432 %>
+  username: <%= ENV["DB_USER"] || 'postgres' %>
   min_messages: warning
   pool: <%= Integer(ENV.fetch("DB_POOL", 5)) %>
   reaping_frequency: <%= Integer(ENV.fetch("DB_REAPING_FREQUENCY", 10)) %>

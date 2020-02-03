@@ -2,27 +2,47 @@
 This is a Rails application, initially generated using [Potassium](https://github.com/platanus/potassium) by Platanus.
 
 ## Local installation
+First, make sure you have [docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/) installed
 
-Assuming you've just cloned the repo, run this script to setup the project in your
-machine:
+Assuming you've just cloned the repo, run the following commands:
 
-    $ ./bin/setup
+1. Build the images
 
-It assumes you have a machine equipped with Ruby, Node.js, Docker and make.
+```
+docker-compose build
+```
+
+2. Run the setup binstub
+
+```
+docker-compose run runner ./bin/setup
+```
+It assumes you have a machine equipped Docker
 
 The script will do the following among other things:
 
 - Install the dependecies
-- Create a docker container for your database
 - Prepare your database
 - Adds heroku remotes
 
-After the app setup is done you can run it with [Heroku Local]
+3. After the app setup is done you can run it with 
 
-    $ heroku local
+```
+docker-compose up <service_name1> <service_name2> ...
+```
+For example to run with only Rails and Webpacker:
+```
+docker-compose up rails webpacker
+```
+Run with Rails, Webpacker and Sidekiq:
+```
+docker-compose up rails webpacker sidekiq
+```
 
-[Heroku Local]: https://devcenter.heroku.com/articles/heroku-local
-
+- To run any commands for the rails app, use the `runner` service.
+```
+docker-compose run runner <command_name>
+```
 
 ## Deployment
 

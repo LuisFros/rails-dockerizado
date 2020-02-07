@@ -3,7 +3,7 @@ FROM ruby:$RUBY_VERSION
 
 ENV LANG C.UTF-8
 
-ARG PG_MAJOR
+ARG PG_VERSION
 ARG NODE_MAJOR
 ARG BUNDLER_VERSION
 ARG YARN_VERSION
@@ -20,6 +20,11 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -\
     && apt-get update \
     && apt-get install -y yarn
 
+# Add PostgreSQL to sources list
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" |  tee /etc/apt/sources.list.d/pgdg.list \
+    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc |  apt-key add - \
+    && apt-get update \
+    && apt-get install postgresql-client-${PG_VERSION} -yq
 
 # Heroku
 RUN curl https://cli-assets.heroku.com/install.sh | sh
